@@ -152,13 +152,7 @@
     stroke: var(--gold);
     stroke-width: 1.6;
     stroke-linecap: round;
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
     transition: stroke-dashoffset 1.6s ease-out;
-  }
-
-  .thread.in-view path{
-    stroke-dashoffset: 0;
   }
 
   /* ---------- SECTIONS ---------- */
@@ -249,7 +243,6 @@
       transition: none !important;
     }
     .thread path{
-      stroke-dashoffset: 0 !important;
       transition: none !important;
     }
   }
@@ -573,19 +566,48 @@
 </div>
 
 <script>
-  var els = document.querySelectorAll('.chapter, .thread');
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var threadPaths = document.querySelectorAll('.thread path');
+  threadPaths.forEach(function(p){
+    try {
+      var len = p.getTotalLength();
+      if (prefersReducedMotion) {
+        p.style.strokeDasharray = 'none';
+      } else {
+        p.style.strokeDasharray = len;
+        p.style.strokeDashoffset = len;
+      }
+    } catch (e) {}
+  });
+
+  var chapters = document.querySelectorAll('.chapter');
+  var threads = document.querySelectorAll('.thread');
+
   if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function(entries){
+    var chapterIo = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
         if (entry.isIntersecting) {
           entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
+          chapterIo.unobserve(entry.target);
         }
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-    els.forEach(function(el){ io.observe(el); });
+    chapters.forEach(function(el){ chapterIo.observe(el); });
+
+    var threadIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          var p = entry.target.querySelector('path');
+          if (p) { p.style.strokeDashoffset = '0'; }
+          threadIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    threads.forEach(function(el){ threadIo.observe(el); });
   } else {
-    els.forEach(function(el){ el.classList.add('in-view'); });
+    chapters.forEach(function(el){ el.classList.add('in-view'); });
+    threadPaths.forEach(function(p){ p.style.strokeDashoffset = '0'; });
   }
 
   var progressBar = document.getElementById('progressBar');
