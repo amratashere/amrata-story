@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finding Myself Again</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Literata:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FAF6F0;
+    --paper-deep: #F1E9DE;
+    --ink: #2B2825;
+    --ink-soft: #55504A;
+    --moss: #6E7F5C;
+    --plum: #7D4F5D;
+    --gold: #B08D57;
+    --line: rgba(43,40,37,0.12);
+    --max: 660px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Literata', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 96px 28px 40px;
+    text-align: center;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 0%, var(--paper-deep) 0%, var(--paper) 70%);
+  }
+
+  .hero .eyebrow{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--moss);
+    font-weight: 600;
+    margin-bottom: 22px;
+  }
+
+  .hero h1{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    line-height: 1.08;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero .subtitle{
+    font-family: 'Literata', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 460px;
+    margin: 0 auto 34px;
+  }
+
+  .hero .byline{
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
+
+  .hero .byline strong{
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ---------- THREAD DIVIDER (the signature element) ---------- */
+  .thread{
+    width: 100%;
+    max-width: 280px;
+    height: 36px;
+    margin: 56px auto;
+    display: block;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .thread.in-view{ opacity: 1; transform: translateY(0); }
+
+  .thread path{
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.chapter{
+    padding: 8px 0 8px;
+  }
+
+  .chapter h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(1.5rem, 4vw, 1.9rem);
+    line-height: 1.2;
+    margin: 0 0 28px;
+    color: var(--ink);
+  }
+
+  .chapter p{
+    margin: 0 0 22px;
+    color: var(--ink);
+  }
+
+  .chapter p:last-child{ margin-bottom: 0; }
+
+  /* fade-in for chapters */
+  .chapter{
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .chapter.in-view{ opacity: 1; transform: translateY(0); }
+
+  /* ---------- PULL QUOTES ---------- */
+  blockquote{
+    margin: 44px auto;
+    max-width: 480px;
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.35rem, 4vw, 1.65rem);
+    line-height: 1.4;
+    color: var(--plum);
+    position: relative;
+    padding: 0 8px;
+  }
+
+  /* ---------- CLOSING ---------- */
+  .closing-mark{
+    text-align: center;
+    padding: 60px 28px 100px;
+  }
+
+  .closing-mark .dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin: 0 auto 28px;
+  }
+
+  .closing-mark p{
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 480px){
+    body{ font-size: 16.5px; }
+    .hero{ padding: 72px 22px 30px; }
+    .wrap{ padding: 0 22px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    .thread, .chapter{
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
+  ::selection{
+    background: var(--plum);
+    color: var(--paper);
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">A Personal Story</div>
+  <h1>Finding Myself&nbsp;Again</h1>
+  <p class="subtitle">A story of loss, hope, and learning to live again.</p>
+  <p class="byline">Written by <strong>Amrata</strong></p>
+</div>
+
+<svg class="thread" data-stage="0" viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.0 30.0 Q 0.0 30.0 8.8 27.4 Q 17.5 24.9 26.2 22.5 Q 35.0 20.2 43.8 16.2 Q 52.5 12.2 61.2 6.4 Q 70.0 0.7 78.8 1.8 Q 87.5 2.8 96.2 12.3 Q 105.0 21.9 113.8 22.1 Q 122.5 22.3 131.2 24.0 Q 140.0 25.7 148.8 29.5 Q 157.5 33.3 166.2 25.8 Q 175.0 18.2 183.8 16.6 Q 192.5 15.0 201.2 10.7 Q 210.0 6.3 218.8 8.9 Q 227.5 11.5 236.2 12.1 Q 245.0 12.7 253.8 20.1 Q 262.5 27.5 271.2 30.9 T 280.0 34.4"/>
+</svg>
+
+<div class="wrap">
+
+<section class="chapter">
+  <h2>When My Body Started Whispering</h2>
+  <p>This journey did not begin on the day of my stroke.</p>
+  <p>It began nearly six months earlier.</p>
+  <p>I started experiencing persistent headaches on the right side of my head, dizziness, and an overwhelming sense of weakness. At first, I dismissed them as stress, fatigue, or simply the demands of a busy life. Like many of us do, I convinced myself they would eventually pass.</p>
+  <p>But somewhere deep down, I felt something wasn't right.</p>
+  <p>I had always been an active person. I enjoyed strength training, loved dancing, cared for my family, and embraced life with energy. Movement was such a natural part of my everyday life that I never stopped to think about it.</p>
+  <p>Until one day, I did.</p>
+  <p>One of the clearest warning signs came when I stopped driving. It wasn't because I couldn't drive. It was because I no longer trusted that my body would respond the way it always had. I worried that my reactions would be too slow, that I might lose control of the vehicle, or that something unexpected might happen.</p>
+  <p>That decision frightened me because it was so unlike me.</p>
+  <p>Looking back now, I realise my body had been whispering for months. I just didn't yet understand what it was trying to say.</p>
+</section>
+
+<svg class="thread" data-stage="1" viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.0 12.8 Q 0.0 12.8 8.8 11.2 Q 17.5 9.5 26.2 7.5 Q 35.0 5.5 43.8 12.0 Q 52.5 18.5 61.2 22.4 Q 70.0 26.3 78.8 27.8 Q 87.5 29.3 96.2 26.1 Q 105.0 22.9 113.8 22.1 Q 122.5 21.4 131.2 16.4 Q 140.0 11.5 148.8 8.5 Q 157.5 5.5 166.2 10.0 Q 175.0 14.5 183.8 17.7 Q 192.5 20.9 201.2 19.0 Q 210.0 17.1 218.8 24.5 Q 227.5 31.8 236.2 30.0 Q 245.0 28.1 253.8 23.9 Q 262.5 19.6 271.2 15.2 T 280.0 10.8"/>
+</svg>
+
+<section class="chapter">
+  <h2>The Diagnosis That Changed Everything</h2>
+  <p>What followed was a long series of doctor visits, blood tests, scans, and investigations. Weeks turned into months as I searched for answers, each appointment bringing hope that the next test would finally explain what I was feeling.</p>
+  <p>Eventually, my doctor recommended an MRI focused on my pituitary region.</p>
+  <p>That scan changed everything.</p>
+  <p>I was diagnosed with a brain aneurysm.</p>
+  <p>Until then, aneurysms belonged to someone else's story. The only place I had ever heard the word was while watching <em>The Good Doctor</em>. Suddenly, I wasn't watching a medical drama anymore. I was sitting across from a neurosurgeon discussing risks, treatment options, and the possibility of brain surgery.</p>
+  <p>A cerebral angiogram was scheduled to better understand the aneurysm and determine the best course of treatment.</p>
+  <p>Life, which had felt so predictable only months earlier, suddenly became uncertain.</p>
+</section>
+
+<svg class="thread" data-stage="2" viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.0 20.0 Q 0.0 20.0 8.8 17.9 Q 17.5 15.9 26.2 11.6 Q 35.0 7.3 43.8 11.4 Q 52.5 15.6 61.2 18.5 Q 70.0 21.4 78.8 24.0 Q 87.5 26.6 96.2 24.6 Q 105.0 22.5 113.8 20.4 Q 122.5 18.2 131.2 16.9 Q 140.0 15.5 148.8 14.6 Q 157.5 13.6 166.2 10.2 Q 175.0 6.9 183.8 9.9 Q 192.5 13.0 201.2 15.2 Q 210.0 17.5 218.8 23.1 Q 227.5 28.6 236.2 29.9 Q 245.0 31.1 253.8 26.6 Q 262.5 22.0 271.2 21.9 T 280.0 21.7"/>
+</svg>
+
+<section class="chapter">
+  <h2>Living Between Fear and Hope</h2>
+  <p>Around the same time, I travelled to my hometown for my nephew's ceremony.</p>
+  <p>Outwardly, life continued as it always had. Family gathered, conversations flowed, photographs were taken, and memories were made. I smiled for the camera and joined the celebrations, but beneath every smile was a quiet fear that never really left me.</p>
+  <p>I had been told that I would likely need an endovascular procedure to place a flow diverter, a tiny stent that would redirect blood flow away from the aneurysm and allow it to heal over time.</p>
+  <p>The thought of someone operating inside my brain was terrifying.</p>
+  <p>Through all of this, my husband never left my side.</p>
+  <p>Neither did my six-year-old son.</p>
+  <p>Despite his age, he sensed that something serious was happening. He watched, listened, asked questions, and somehow found his own quiet way of supporting me. I often wondered how much he truly understood, but his presence gave me strength on days when fear threatened to take over.</p>
+</section>
+
+<blockquote>Sometimes courage doesn't come from within.<br>Sometimes it comes from the people who quietly stand beside you.</blockquote>
+
+<svg class="thread" data-stage="3" viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.0 13.9 Q 0.0 13.9 8.8 11.4 Q 17.5 9.0 26.2 14.8 Q 35.0 20.7 43.8 19.9 Q 52.5 19.2 61.2 22.9 Q 70.0 26.6 78.8 23.6 Q 87.5 20.6 96.2 21.2 Q 105.0 21.9 113.8 16.4 Q 122.5 11.0 131.2 11.8 Q 140.0 12.7 148.8 13.2 Q 157.5 13.8 166.2 16.3 Q 175.0 18.8 183.8 20.1 Q 192.5 21.4 201.2 24.9 Q 210.0 28.4 218.8 28.4 Q 227.5 28.4 236.2 22.2 Q 245.0 16.1 253.8 15.1 Q 262.5 14.1 271.2 14.5 T 280.0 14.9"/>
+</svg>
+
+<section class="chapter">
+  <h2>The Surgery</h2>
+  <p>The angiogram confirmed what the doctors had suspected. The aneurysm required treatment, and the endovascular procedure was strongly recommended.</p>
+  <p>A week later, I found myself preparing for surgery.</p>
+  <p>I remember speaking with my parents, my sister-in-law, my husband, and my son before I was taken into the operating theatre. Their words, their prayers, and simply knowing they were there gave me a sense of calm that I desperately needed.</p>
+  <p>The procedure went well.</p>
+  <p>When I woke up, I felt relieved. I spoke with my family, and for a brief moment, it seemed as though the hardest part was behind us.</p>
+  <p>It wasn't.</p>
+  <p>That night, I suffered a hemorrhagic stroke.</p>
+</section>
+
+<svg class="thread" data-stage="4" viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.0 15.6 Q 0.0 15.6 8.8 18.7 Q 17.5 21.8 26.2 23.6 Q 35.0 25.4 43.8 22.4 Q 52.5 19.3 61.2 17.0 Q 70.0 14.7 78.8 13.1 Q 87.5 11.4 96.2 12.6 Q 105.0 13.8 113.8 12.7 Q 122.5 11.6 131.2 15.9 Q 140.0 20.3 148.8 22.1 Q 157.5 23.9 166.2 22.6 Q 175.0 21.4 183.8 21.8 Q 192.5 22.1 201.2 19.6 Q 210.0 17.0 218.8 14.8 Q 227.5 12.7 236.2 14.1 Q 245.0 15.6 253.8 13.4 Q 262.5 11.2 271.2 13.2 T 280.0 15.2"/>
+</svg>
+
+<section class="chapter">
+  <h2>Before and After</h2>
+  <p>There are moments that quietly change the course of your life.</p>
+  <p>And then there are moments that divide it completely.</p>
+  <p>For me, there was life before the stroke and life after it.</p>
+  <p>I was conscious. I knew something had happened, but I could not yet grasp how profoundly my life had changed. I was grateful to be alive, but frightened by the uncertainty that stretched ahead of me.</p>
+  <p>Questions filled my mind.</p>
+  <p>Would I walk again? Would I regain the use of my left side? Would I ever dance again? Would I ever feel like myself again?</p>
+  <p>The future I had imagined disappeared almost overnight, replaced by one I could not yet picture.</p>
+  <p>Little did I know that surviving the stroke was only the beginning.</p>
+  <p>The real journey was about to begin.</p>
+</section>
+
+<svg class="thread" data-stage="5" viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.0 13.9 Q 0.0 13.9 8.8 14.2 Q 17.5 14.5 26.2 13.4 Q 35.0 12.4 43.8 16.0 Q 52.5 19.6 61.2 20.3 Q 70.0 21.0 78.8 22.2 Q 87.5 23.5 96.2 21.3 Q 105.0 19.1 113.8 17.9 Q 122.5 16.6 131.2 14.8 Q 140.0 12.9 148.8 12.6 Q 157.5 12.2 166.2 14.2 Q 175.0 16.3 183.8 17.4 Q 192.5 18.4 201.2 21.4 Q 210.0 24.5 218.8 23.9 Q 227.5 23.3 236.2 21.4 Q 245.0 19.4 253.8 18.8 Q 262.5 18.1 271.2 16.2 T 280.0 14.3"/>
+</svg>
+
+<section class="chapter">
+  <h2>Learning to Live Again</h2>
+  <p>My rehabilitation began while I was still in the hospital.</p>
+  <p>From the very beginning, my doctors and rehabilitation team stood beside me like pillars. They guided me through fear, uncertainty, and the overwhelming task of rebuilding a life that had changed overnight.</p>
+  <p>After I was discharged, rehabilitation became my full-time job.</p>
+  <p>In the beginning, I couldn't even sit independently. Many of my muscles had little or no strength. The simplest movements, things I had never given a second thought, suddenly felt impossible.</p>
+  <p>I often thought about how children learn to move. First they learn to sit. Then to stand. Then to take their first steps.</p>
+  <p>In many ways, I was beginning that journey all over again.</p>
+  <p>Every day became an opportunity to try again. To sit a little longer. To stand a little steadier. To shift my weight with a little more confidence.</p>
+  <p>Two months after my stroke, my left arm moved for the first time.</p>
+  <p>It was only a small movement. To anyone else, it might have seemed insignificant. To me, it meant possibility.</p>
+  <p>It reminded me that my brain and body were still trying to find each other again. That single movement gave me hope that there were many more waiting to be rediscovered.</p>
+</section>
+
+<blockquote>Recovery no longer happened in milestones measured by months.<br>It happened in moments measured by millimetres.</blockquote>
+
+<svg class="thread" data-stage="6" viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.0 21.7 Q 0.0 21.7 8.8 20.0 Q 17.5 18.4 26.2 17.6 Q 35.0 16.8 43.8 14.9 Q 52.5 13.1 61.2 12.6 Q 70.0 12.1 78.8 13.4 Q 87.5 14.8 96.2 15.8 Q 105.0 16.8 113.8 18.5 Q 122.5 20.2 131.2 21.5 Q 140.0 22.8 148.8 20.5 Q 157.5 18.1 166.2 18.1 Q 175.0 18.0 183.8 15.7 Q 192.5 13.3 201.2 14.4 Q 210.0 15.6 218.8 16.2 Q 227.5 16.9 236.2 17.1 Q 245.0 17.3 253.8 20.0 Q 262.5 22.6 271.2 22.6 T 280.0 22.7"/>
+</svg>
+
+<section class="chapter">
+  <h2>Becoming a Student of My Own Recovery</h2>
+  <p>One of the most unexpected parts of this journey was the curiosity it awakened within me.</p>
+  <p>As rehabilitation progressed, I became fascinated by what was happening inside my body. I wanted to understand why certain muscles worked while others didn't. Why my foot moved the way it did. Why some movements returned quickly while others took months.</p>
+  <p>So I began asking questions. Then more questions.</p>
+  <p>Soon, I found myself learning about muscles, movement, neuroplasticity, motor recovery, gait mechanics, and the incredible ability of the brain to reorganise and heal.</p>
+  <p>What began as curiosity slowly changed the way I approached recovery. I was no longer simply completing exercises because they appeared on my therapy schedule. I wanted to understand the purpose behind every movement.</p>
+  <p>I learned to observe how my body compensated. I learned to notice small changes. I learned to listen.</p>
+  <p>The more I understood my body, the more effectively I could work with it instead of against it.</p>
+  <p>Looking back, I believe that was one of the biggest turning points in my recovery. I stopped waiting for recovery to happen to me. Instead, I became an active participant in it.</p>
+  <p>Even today, I remain deeply fascinated by the science of recovery. Every new discovery reminds me that the human brain is capable of adapting in ways that continue to amaze me.</p>
+</section>
+
+<svg class="thread" data-stage="7" viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.0 16.2 Q 0.0 16.2 8.8 18.3 Q 17.5 20.4 26.2 20.5 Q 35.0 20.6 43.8 21.1 Q 52.5 21.6 61.2 19.9 Q 70.0 18.1 78.8 17.9 Q 87.5 17.7 96.2 15.9 Q 105.0 14.2 113.8 15.8 Q 122.5 17.5 131.2 17.4 Q 140.0 17.4 148.8 18.0 Q 157.5 18.6 166.2 19.4 Q 175.0 20.2 183.8 20.4 Q 192.5 20.5 201.2 18.6 Q 210.0 16.8 218.8 16.4 Q 227.5 16.0 236.2 14.8 Q 245.0 13.7 253.8 14.1 Q 262.5 14.5 271.2 15.6 T 280.0 16.6"/>
+</svg>
+
+<section class="chapter">
+  <h2>The People Who Carried Me</h2>
+  <p>Recovery is never a journey taken alone.</p>
+  <p>My husband and son stood beside me through every victory and every setback. They celebrated progress that most people would never have noticed and carried me through the days when progress felt painfully slow.</p>
+  <p>One of the hardest parts of my recovery wasn't the physical pain. It was knowing that my son had just started Grade 1, and I couldn't be the mother I wanted to be during such an important year of his life.</p>
+  <p>His first year of primary school was filled with new experiences, new routines, and milestones that every parent looks forward to. I wanted to be there for all of them.</p>
+  <p>Instead, I was learning to sit, stand, and walk again.</p>
+  <p>That was a loss I carried quietly.</p>
+  <p>Yet children have a remarkable way of seeing beyond circumstances. He never asked me to be perfect. He simply wanted me to be there. His love became one of my greatest sources of strength.</p>
+  <p>When I couldn't see how far I had come, my husband reminded me. He carried hope for both of us until I could carry it again.</p>
+  <p>My parents and my in-laws stood beside me every step of the way. Their love, encouragement, and unwavering belief carried me through some of my darkest days. My sister-in-law, relatives, friends, and loved ones surrounded me with kindness and reminded me, time and again, that I wasn't walking this path alone.</p>
+  <p>Then there were the people I never expected to become family.</p>
+  <p>When I first met my doctors, therapists, nurses, and caregivers, I thought they would simply help me recover. Instead, they became part of my journey.</p>
+  <p>They witnessed my frustrations, my tears, my doubts, and my victories. They celebrated moments that few others could truly appreciate. A stronger grip. A steadier step. A little more balance.</p>
+  <p>They challenged me when I needed encouragement and believed in me on the days when I struggled to believe in myself.</p>
+  <p>Looking back, I realise my family became much bigger than I had ever imagined. It includes not only the people I was born into and the family I built, but also the remarkable people who walked beside me through the hardest chapter of my life.</p>
+  <p>Recovery taught me that family is not always defined by blood. Sometimes it is made up of the people who refuse to let you give up on yourself.</p>
+</section>
+
+<svg class="thread" data-stage="8" viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.0 20.6 Q 0.0 20.6 8.8 20.5 Q 17.5 20.4 26.2 18.9 Q 35.0 17.3 43.8 17.5 Q 52.5 17.7 61.2 17.2 Q 70.0 16.7 78.8 16.9 Q 87.5 17.0 96.2 16.9 Q 105.0 16.7 113.8 18.2 Q 122.5 19.7 131.2 19.6 Q 140.0 19.5 148.8 19.8 Q 157.5 20.1 166.2 19.2 Q 175.0 18.3 183.8 17.9 Q 192.5 17.5 201.2 17.1 Q 210.0 16.7 218.8 16.5 Q 227.5 16.3 236.2 17.2 Q 245.0 18.1 253.8 19.1 Q 262.5 20.1 271.2 20.4 T 280.0 20.6"/>
+</svg>
+
+<section class="chapter">
+  <h2>What Stroke Took From Me</h2>
+  <p>Some of the losses were obvious. Weakness on my left side. Difficulty walking. The need for a foot orthosis. The endless work of teaching my body how to move again.</p>
+  <p>But other losses were harder to explain.</p>
+  <p>I missed dancing. I missed moving without thinking. I missed running around with my son. I missed singing the way I once did. I missed the effortless relationship I had with my own body.</p>
+  <p>These weren't simply activities I enjoyed. They were part of who I was.</p>
+  <p>There were days when I quietly grieved those losses and wondered whether I would ever feel like myself again.</p>
+</section>
+
+<blockquote>Grief isn't always about losing a person.<br>Sometimes it's about losing the version of yourself you thought would always be there.</blockquote>
+
+<svg class="thread" data-stage="9" viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.0 18.3 Q 0.0 18.3 8.8 18.5 Q 17.5 18.6 26.2 18.7 Q 35.0 18.8 43.8 18.4 Q 52.5 18.0 61.2 18.0 Q 70.0 18.0 78.8 17.6 Q 87.5 17.2 96.2 17.3 Q 105.0 17.4 113.8 17.8 Q 122.5 18.2 131.2 18.3 Q 140.0 18.4 148.8 18.6 Q 157.5 18.9 166.2 18.6 Q 175.0 18.4 183.8 18.5 Q 192.5 18.6 201.2 17.9 Q 210.0 17.1 218.8 17.0 Q 227.5 16.9 236.2 16.9 Q 245.0 16.8 253.8 17.4 Q 262.5 18.0 271.2 18.2 T 280.0 18.4"/>
+</svg>
+
+<section class="chapter">
+  <h2>What Stroke Gave Me</h2>
+  <p>Stroke took many things from me.</p>
+  <p>But it also revealed things I never knew I possessed.</p>
+  <p>Patience. Resilience. Perspective. Gratitude.</p>
+  <p>Above all, it taught me to appreciate progress in ways I never had before.</p>
+  <p>Today, I walk slowly, with the support of a foot orthosis. But I walk. I can care for myself. I continue to work towards greater independence.</p>
+  <p>Every step I take represents countless hours of therapy, determination, frustration, and perseverance.</p>
+  <p>Recovery is still ongoing. There are still goals I hope to achieve. There are still dances I hope to dance. There are still songs I hope to sing. And there are still parts of myself that I continue to rediscover.</p>
+</section>
+
+<svg class="thread" data-stage="10" viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.0 18.4 Q 0.0 18.4 8.8 18.4 Q 17.5 18.3 26.2 18.1 Q 35.0 17.9 43.8 17.8 Q 52.5 17.7 61.2 17.6 Q 70.0 17.6 78.8 17.7 Q 87.5 17.8 96.2 17.9 Q 105.0 17.9 113.8 18.0 Q 122.5 18.1 131.2 18.2 Q 140.0 18.3 148.8 18.4 Q 157.5 18.4 166.2 18.0 Q 175.0 17.7 183.8 17.6 Q 192.5 17.6 201.2 17.6 Q 210.0 17.6 218.8 17.7 Q 227.5 17.8 236.2 18.0 Q 245.0 18.1 253.8 18.3 Q 262.5 18.5 271.2 18.6 T 280.0 18.6"/>
+</svg>
+
+<section class="chapter">
+  <h2>Finding Myself Again</h2>
+  <p>When I first looked at my journey, I saw only what had gone wrong. The diagnosis. The surgery. The stroke. The uncertainty. The long road through rehabilitation.</p>
+  <p>But somewhere along the way, my perspective began to change.</p>
+  <p>Today, when I look back, I don't see only the hardest chapters. I see the people who walked beside me. I see the lessons that could only have been learned by living them. I see the quiet victories that once felt impossible.</p>
+  <p>No one would willingly choose an aneurysm or a stroke. I certainly wouldn't. But this journey introduced me to people I may never have met otherwise. It taught me lessons I might never have learned. It revealed strengths I never knew I possessed.</p>
+  <p>It also changed the way I see life.</p>
+  <p>Before all of this, I rarely thought about the simple act of walking. Or lifting an arm. Or taking a step. Or hugging my son.</p>
+  <p>Today, those ordinary moments no longer feel ordinary. They feel like gifts.</p>
+  <p>Recovery has taught me that healing is rarely linear. Some days you move forward. Some days you feel as though you've gone backwards. And then there are days when something changes so quietly that you almost miss it, until you realise you've come further than you ever imagined.</p>
+  <p>This is not the life I had planned. But it is still my life. And it is a life filled with love, hope, gratitude, and possibilities that I couldn't see when this journey began.</p>
+  <p>I continue to work on my mobility. I continue to learn about my body. I continue to celebrate every step forward, no matter how small. Most importantly, I continue to hope.</p>
+  <p>Finding myself again hasn't meant becoming the person I was before my stroke. It has meant discovering a new version of myself. One who celebrates small victories. One who never takes an ordinary day for granted. One who has learned that strength isn't measured by how much we can lift, but by how many times we choose to begin again.</p>
+</section>
+
+<blockquote>My story didn't end with an aneurysm.<br>It didn't end with a stroke.<br>It didn't end in a rehabilitation gym.</blockquote>
+
+<section class="chapter">
+  <p>It continues every day that I choose hope over fear, gratitude over regret, and possibility over limitation.</p>
+  <p>In many ways, I am still finding myself again.</p>
+  <p>And perhaps, that's what recovery really is.</p>
+</section>
+
+</div>
+
+<div class="closing-mark">
+  <div class="dot"></div>
+  <p>Amrata</p>
+</div>
+
+<script>
+  var els = document.querySelectorAll('.chapter, .thread');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('in-view'); });
+  }
+</script>
+
+</body>
+</html>
