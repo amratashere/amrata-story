@@ -516,14 +516,35 @@
   ></div>
   <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
   <script>
-    window.addEventListener("message", function(e){
-      if (e.data && typeof e.data === "object" && e.data.context === "cusdis"){
-        var iframe = document.querySelector("#cusdis_thread iframe");
-        if (iframe && e.data.payload && e.data.payload.height){
-          iframe.style.height = e.data.payload.height + "px";
+    // Cusdis's hosted widget has a known bug where its resize signal
+    // doesn't fire reliably (see github.com/djyde/cusdis/issues/283 and #191),
+    // leaving the iframe too short and creating an internal scrollbar.
+    // Workaround: force a generous fixed height once the iframe appears.
+    (function(){
+      var target = document.getElementById('cusdis_thread');
+      if (!target) return;
+      var applied = false;
+      var observer = new MutationObserver(function(){
+        var iframe = target.querySelector('iframe');
+        if (iframe && !applied) {
+          iframe.style.setProperty('height', '780px', 'important');
+          iframe.style.setProperty('min-height', '780px', 'important');
+          applied = true;
         }
-      }
-    });
+      });
+      observer.observe(target, { childList: true, subtree: true });
+      // Also handle the genuine resize message in case it does fire,
+      // taking whichever is taller.
+      window.addEventListener('message', function(e){
+        if (e.data && typeof e.data === 'object' && e.data.context === 'cusdis'){
+          var iframe = target.querySelector('iframe');
+          if (iframe && e.data.payload && e.data.payload.height){
+            var h = Math.max(780, e.data.payload.height);
+            iframe.style.setProperty('height', h + 'px', 'important');
+          }
+        }
+      });
+    })();
   </script>
 </div>
 
