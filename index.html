@@ -206,7 +206,14 @@
   /* ---------- CLOSING ---------- */
   .closing-mark{
     text-align: center;
-    padding: 60px 28px 100px;
+    padding: 44px 28px 8px;
+  }
+
+  .section-divider{
+    width: 60px;
+    height: 1px;
+    background: var(--line);
+    margin: 22px auto 30px;
   }
 
   .closing-mark .dot{
@@ -238,6 +245,34 @@
       transform: none !important;
       transition: none !important;
     }
+  }
+
+  .comments-section{
+    max-width: var(--max);
+    margin: 8px auto 0;
+    padding: 0 28px 60px;
+  }
+
+  .comments-section h3{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .comments-section .comments-sub{
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  #cusdis_thread{
+    font-family: 'Inter', sans-serif;
   }
 
   ::selection{
@@ -465,6 +500,31 @@
 <div class="closing-mark">
   <div class="dot"></div>
   <p>Amrata</p>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="comments-section">
+  <h3>Share your thoughts</h3>
+  <p class="comments-sub">Comments are public - if her story moved you, others would love to read your words too.</p>
+  <div id="cusdis_thread"
+    data-host="https://cusdis.com"
+    data-app-id="f98e7120-9cfc-47c4-a740-4571979b7d26"
+    data-page-id="amrata-finding-myself-again"
+    data-page-url="https://amratashere.github.io/amrata-story/"
+    data-page-title="Finding Myself Again"
+  ></div>
+  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+  <script>
+    window.addEventListener("message", function(e){
+      if (e.data && typeof e.data === "object" && e.data.context === "cusdis"){
+        var iframe = document.querySelector("#cusdis_thread iframe");
+        if (iframe && e.data.payload && e.data.payload.height){
+          iframe.style.height = e.data.payload.height + "px";
+        }
+      }
+    });
+  </script>
 </div>
 
 <script>
