@@ -152,7 +152,13 @@
     stroke: var(--gold);
     stroke-width: 1.6;
     stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
     transition: stroke-dashoffset 1.6s ease-out;
+  }
+
+  .thread.in-view path{
+    stroke-dashoffset: 0;
   }
 
   /* ---------- SECTIONS ---------- */
@@ -243,6 +249,7 @@
       transition: none !important;
     }
     .thread path{
+      stroke-dashoffset: 0 !important;
       transition: none !important;
     }
   }
@@ -250,7 +257,7 @@
   .comments-section{
     max-width: var(--max);
     margin: 8px auto 0;
-    padding: 0 28px 60px;
+    padding: 0 28px 70px;
   }
 
   .comments-section h3{
@@ -260,7 +267,7 @@
     font-size: 1.3rem;
     color: var(--ink);
     text-align: center;
-    margin-bottom: 6px;
+    margin: 0 0 6px;
   }
 
   .comments-section .comments-sub{
@@ -268,12 +275,94 @@
     font-size: 13px;
     color: var(--ink-soft);
     text-align: center;
-    margin-bottom: 18px;
+    margin: 0 0 6px;
   }
 
-  #cusdis_thread{
+  .comments-section .comments-note{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+    opacity: 0.8;
+    text-align: center;
+    margin: 0 0 34px;
+  }
+
+  .reader-comment{
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .reader-comment:last-child{
+    border-bottom: 1px solid var(--line);
+  }
+
+  .reader-meta{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 10px;
+    margin-bottom: 8px;
     font-family: 'Inter', sans-serif;
   }
+
+  .reader-name{
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+
+  .reader-date{
+    font-size: 12px;
+    color: var(--ink-soft);
+    opacity: 0.75;
+  }
+
+  .reader-text p{
+    margin: 0 0 10px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  .reader-text p:last-child{ margin-bottom: 0; }
+
+  /* long comments: shortened with a fade, opened by "Read more" (script adds the button) */
+  .reader-text.collapsed{
+    position: relative;
+    max-height: 136px;
+    overflow: hidden;
+  }
+
+  .reader-text.collapsed::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 52px;
+    background: linear-gradient(to bottom, rgba(250,246,240,0), var(--paper));
+    pointer-events: none;
+  }
+
+  .reader-more{
+    display: inline-block;
+    margin-top: 10px;
+    padding: 0 0 1px;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid rgba(110,127,92,0.4);
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--moss);
+    cursor: pointer;
+  }
+
+  .reader-more[hidden]{ display: none; }
+  .reader-more:hover{ border-bottom-color: var(--moss); }
+  .reader-more:focus-visible{ outline: 2px solid var(--moss); outline-offset: 3px; }
 
   ::selection{
     background: var(--plum);
@@ -521,93 +610,104 @@
 
 <div class="section-divider"></div>
 
-<div class="comments-section">
-  <h3>Share your thoughts</h3>
-  <p class="comments-sub">Comments are public - if her story moved you, others would love to read your words too.</p>
-  <div id="cusdis_thread"
-    data-host="https://cusdis.com"
-    data-app-id="f98e7120-9cfc-47c4-a740-4571979b7d26"
-    data-page-id="amrata-finding-myself-again"
-    data-page-url="https://amratashere.github.io/amrata-story/"
-    data-page-title="Finding Myself Again"
-  ></div>
-  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-  <script>
-    // Cusdis's hosted widget has a known bug where its resize signal
-    // doesn't fire reliably (see github.com/djyde/cusdis/issues/283 and #191),
-    // leaving the iframe too short and creating an internal scrollbar.
-    // Workaround: force a generous fixed height once the iframe appears.
-    (function(){
-      var target = document.getElementById('cusdis_thread');
-      if (!target) return;
-      var applied = false;
-      var observer = new MutationObserver(function(){
-        var iframe = target.querySelector('iframe');
-        if (iframe && !applied) {
-          iframe.style.setProperty('height', '780px', 'important');
-          iframe.style.setProperty('min-height', '780px', 'important');
-          applied = true;
-        }
-      });
-      observer.observe(target, { childList: true, subtree: true });
-      // Also handle the genuine resize message in case it does fire,
-      // taking whichever is taller.
-      window.addEventListener('message', function(e){
-        if (e.data && typeof e.data === 'object' && e.data.context === 'cusdis'){
-          var iframe = target.querySelector('iframe');
-          if (iframe && e.data.payload && e.data.payload.height){
-            var h = Math.max(780, e.data.payload.height);
-            iframe.style.setProperty('height', h + 'px', 'important');
-          }
-        }
-      });
-    })();
-  </script>
+<div class="comments-section" role="region" aria-labelledby="readers-heading">
+  <h3 id="readers-heading">Words from readers</h3>
+  <p class="comments-sub">19 messages left on this page since it was published</p>
+  <p class="comments-note">The comment box has been retired, so new messages can’t be added here for now.</p>
+  <div class="reader-list">
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Dr. Sharan</span><span class="reader-date">6 July 2026</span></div>
+      <div class="reader-text"><p>wow! amazing amrarta! thank you so much for writing this and in such 'human' details. very inspiring</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Dr. Prathiba Sharan</span><span class="reader-date">5 July 2026</span></div>
+      <div class="reader-text"><p>Very well written Amrutha. You really fought a big battle, not alone though. You are blessed to have people around you who care for you at home and outside. You are doing a great job. Keep it up. Good luck and God bless you.</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Payeli</span><span class="reader-date">6 July 2026</span></div>
+      <div class="reader-text"><p>Hi Amrata,</p><p>Thank you for sharing one of the toughest, yet bravest, journeys of your life. Your story is a reminder that life is full of uncertainties, but also possibilities we can never truly imagine until we experience them ourselves. Until then, we either take life for granted or find ourselves complaining about the smallest things.</p><p>What touched me the most was that you wrote about your experience without trying to make it look prettier than it was. That honesty will help so many readers - both those you know and those you'll never meet -find hope, courage, and the strength to keep going.</p><p>Your story resonated deeply with me because I, too, had a stroke when I was eight months pregnant. I still remember those few terrifying seconds. I was alone in the bathroom, having a seizure, completely unable to understand what was happening. It probably lasted only a few seconds, but when I came to, lying in a pool of blood, my first instinct was to clean everything up so my parents and in-laws wouldn't be frightened. Even trying to explain what had happened was a struggle because words like "stroke" or "seizure" don't come naturally when you don't even know that's what you've just experienced.</p><p>Then came the frantic drive to the hospital- made even longer by Bangalore's Friday traffic and people who didn't seem to understand what hazard lights meant. I was trying to explain my symptoms to the doctors, worrying endlessly about my baby's safety, while constantly throwing up. Looking back, I think what kept me going was my baby's well-being. As you beautifully said, sometimes strength comes from somewhere beyond ourselves- or from the people we love the most. For me, it was my unborn baby and my beloved husband, my best friend. Waking up in the NICU, after a follow-up seizure is a story for another day.</p><p>That experience changed me in ways I could never have imagined. It shaped many life decisions, including choosing not to have a second child. But what stayed with me the longest was knowing how helpless and worried my husband must have felt through that entire night and several nights after the episode, for years..</p><p>Sending you loads of hugs and more power to have your small and big victories in life and bowing to your spirits - the joy of caring and helping others by sharing your journey.</p><p>Hope to meet you someday…</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Heena</span><span class="reader-date">4 July 2026</span></div>
+      <div class="reader-text"><p>You've been unbelievably brave through it all. It reminded me how easily we take our time, our health, our bodies, and even our families for granted; until life reminds us what truly matters. Thank you for sharing something so personal and powerful. Sending you and your family the biggest hug.<br>Lots of love and strength ❤️</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Chandan Kamath</span><span class="reader-date">24 July 2026</span></div>
+      <div class="reader-text"><p>Dear Amrata,<br>Looking at the difficulty and pain that you underwent, which was heart wrenching at that time. The come back as well as the maturity that you have evolved in the process of getting better is really inspiring. As if you are reborn with greater strength and better understanding of your body, mind and life. The writing shows that all the troubles of mind settled giving way for the body to heal. This story should inspire people under similar circumstances and also everybody in general. Once you recover fully, I am sure the daily difficulties of life would look small to you and the broader perspectives and strengths that you have gained would help you grow faster than anybody else. So have no regrets about the losses that you have suffered in this period, you will gain it in manifold ways. May God give good health, happiness and prosperity to you and also those who supported you.</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Archu</span><span class="reader-date">4 July 2026</span></div>
+      <div class="reader-text"><p>Really inspiring to read your words.Patience is very important to lead life, sometimes we fail if everything is fine. Adjusting minds accordingly and counting blessings.Nothing is permanent.Stay strong 😊as always.</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Sanjay krishna</span><span class="reader-date">5 July 2026</span></div>
+      <div class="reader-text"><p>Incredibly motivating, especially the ending! Choosing hope over fear every day is the perfect reminder that better days are ahead. Keep them coming, Ma'am!"</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Siddharth</span><span class="reader-date">5 July 2026</span></div>
+      <div class="reader-text"><p>I am so proud to see you recover. Keep going. Brain has infinite potential to change. Damage can be comlensated but loss of self idendity  MUST NOT BE COMPROMISED WITH.</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Theju</span><span class="reader-date">30 July 2026</span></div>
+      <div class="reader-text"><p>Tears rolled but I’m proud of your strength….!! Keep going ❤️</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Anusha Shetty</span><span class="reader-date">10 August 2026</span></div>
+      <div class="reader-text"><p>Your story truly touched my heart. ❤️ What you have gone through and the strength with which you have come through it is nothing short of inspiring. You are a fighter and a beautiful example of courage and hope.</p><p>As a mother to a 6-year-old, I can only imagine how much your little one means to you and how much strength he must have given you through this journey. May you continue to heal, grow stronger every day, and create many more beautiful memories with your son. ❤️</p><p>So proud of you for sharing your story and reminding all of us how precious life is. Wishing you continued strength, good health, and happiness. You are truly an inspiration. ❤️🙏</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">gayu</span><span class="reader-date">5 July 2026</span></div>
+      <div class="reader-text"><p>Pain sucks, but the strenght ,courage and hope you've shown will always inspire soooomany people. I especially loved your remider that recovery is about discovering a new you , not going back to who you were . <br>I'm sure you'll have many joyful dances and songs ahead,countless moments where you’ll remember how far you've come and what a strong women you are!!! I know you'll bounce back to the best version of yourself, always reminding you've won the toughest battle life threw at you!!!</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Veen</span><span class="reader-date">4 July 2026</span></div>
+      <div class="reader-text"><p>You r such an inspiration..Seeing how far you have come to walk by yourself shows how remarkably you are rewriting this chapter of your life, truly admirable and so so proud of the cheerfulness which you keep carrying.. Awesome 😎</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Chaithra</span><span class="reader-date">4 July 2026</span></div>
+      <div class="reader-text"><p>Amrata I always admire you.<br>You are one of the strongest woman I have met.<br>You are truly inspiring.<br>Loads of blessings and love to you :)</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Deepthi Akka</span><span class="reader-date">4 July 2026</span></div>
+      <div class="reader-text"><p>More strength to you girl. You are your own hero. Lots of love ❤️</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Sapna Shenoy</span><span class="reader-date">4 July 2026</span></div>
+      <div class="reader-text"><p>I genuinely appreciate that you have made it through the hardest time.</p><p>Get well soon. Best wishes and ❤️ to you.</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Pinky bro</span><span class="reader-date">4 July 2026</span></div>
+      <div class="reader-text"><p>Inspiring, Amy! Proud of you!</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Raja Rao</span><span class="reader-date">4 July 2026</span></div>
+      <div class="reader-text"><p>Life takes us to such extremes.p Truly inspired the way you've expressed gratitude in gaining "Patience. Resilience. Perspective. Gratitude"</p><p>May God continue to power you, to continue to find a deeper self, to celebrate more moments...</p><p>All the best.</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Rekha</span><span class="reader-date">4 July 2026</span></div>
+      <div class="reader-text"><p>Wishing you all the strength in the world. You have been a true inspiration to many.</p><p>Extremely toughed by your story.</p></div>
+    </article>
+    <article class="reader-comment">
+      <div class="reader-meta"><span class="reader-name">Akshatha</span><span class="reader-date">5 July 2026</span></div>
+      <div class="reader-text"><p>May God bless you dear....</p></div>
+    </article>
+  </div>
 </div>
 
 <script>
-  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  var threadPaths = document.querySelectorAll('.thread path');
-  threadPaths.forEach(function(p){
-    try {
-      var len = p.getTotalLength();
-      if (prefersReducedMotion) {
-        p.style.strokeDasharray = 'none';
-      } else {
-        p.style.strokeDasharray = len;
-        p.style.strokeDashoffset = len;
-      }
-    } catch (e) {}
-  });
-
-  var chapters = document.querySelectorAll('.chapter');
-  var threads = document.querySelectorAll('.thread');
-
+  var els = document.querySelectorAll('.chapter, .thread');
   if ('IntersectionObserver' in window) {
-    var chapterIo = new IntersectionObserver(function(entries){
+    var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
         if (entry.isIntersecting) {
           entry.target.classList.add('in-view');
-          chapterIo.unobserve(entry.target);
+          io.unobserve(entry.target);
         }
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-    chapters.forEach(function(el){ chapterIo.observe(el); });
-
-    var threadIo = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if (entry.isIntersecting) {
-          var p = entry.target.querySelector('path');
-          if (p) { p.style.strokeDashoffset = '0'; }
-          threadIo.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-    threads.forEach(function(el){ threadIo.observe(el); });
+    els.forEach(function(el){ io.observe(el); });
   } else {
-    chapters.forEach(function(el){ el.classList.add('in-view'); });
-    threadPaths.forEach(function(p){ p.style.strokeDashoffset = '0'; });
+    els.forEach(function(el){ el.classList.add('in-view'); });
   }
 
   var progressBar = document.getElementById('progressBar');
@@ -621,6 +721,60 @@
   window.addEventListener('scroll', updateProgress, { passive: true });
   window.addEventListener('resize', updateProgress);
   updateProgress();
+</script>
+
+<script>
+  // Long reader comments: show a shortened version with "Read more". Without JS the full text simply shows.
+  (function(){
+    var COLLAPSED_PX = 136, SLACK = 56;
+    var cards = document.querySelectorAll('.reader-comment');
+    var items = [];
+    Array.prototype.forEach.call(cards, function(card, i){
+      var text = card.querySelector('.reader-text');
+      if (!text) return;
+      text.id = 'reader-text-' + (i + 1);
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'reader-more';
+      btn.setAttribute('aria-controls', text.id);
+      btn.setAttribute('aria-expanded', 'false');
+      btn.textContent = 'Read more';
+      btn.hidden = true;
+      card.appendChild(btn);
+      var it = { card: card, text: text, btn: btn, open: false };
+      items.push(it);
+      btn.addEventListener('click', function(){
+        it.open = !it.open;
+        if (it.open) {
+          it.text.classList.remove('collapsed');
+          btn.textContent = 'Show less';
+          btn.setAttribute('aria-expanded', 'true');
+        } else {
+          it.text.classList.add('collapsed');
+          btn.textContent = 'Read more';
+          btn.setAttribute('aria-expanded', 'false');
+          if (card.getBoundingClientRect().top < 0 && card.scrollIntoView) { card.scrollIntoView(); }
+        }
+      });
+    });
+    function evaluate(){
+      items.forEach(function(it){
+        if (it.open) return;
+        it.text.classList.remove('collapsed');
+        if (it.text.scrollHeight > COLLAPSED_PX + SLACK) {
+          it.text.classList.add('collapsed');
+          it.btn.hidden = false;
+        } else {
+          it.btn.hidden = true;
+        }
+      });
+    }
+    evaluate();
+    window.addEventListener('load', evaluate);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(evaluate); }
+    var t;
+    window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(evaluate, 150); });
+  })();
 </script>
 
 </body>
