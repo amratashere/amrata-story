@@ -364,6 +364,215 @@
   .reader-more:hover{ border-bottom-color: var(--moss); }
   .reader-more:focus-visible{ outline: 2px solid var(--moss); outline-offset: 3px; }
 
+  /* owner replies shown under a reader's message */
+  .reader-reply{
+    margin-top: 14px;
+    padding: 2px 0 2px 14px;
+    border-left: 2px solid rgba(176,141,87,0.65);
+  }
+
+  .reader-reply-label{
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .reader-reply p{
+    margin: 0 0 8px;
+    font-size: 15.5px;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .reader-reply p:last-child{ margin-bottom: 0; }
+
+  /* leave a message */
+
+  .mf-open-wrap{
+    margin: 16px 0 30px;
+    text-align: center;
+  }
+
+  .mf-open{
+    padding: 10px 22px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--moss);
+    background: transparent;
+    border: 1px solid var(--moss);
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .mf-open:hover{ background: rgba(110,127,92,0.08); }
+  .mf-open:focus-visible{ outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  .leave-msg{
+    margin: -6px 0 34px;
+    padding: 22px 20px 18px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: rgba(255,253,249,0.6);
+  }
+
+  .leave-msg .mf-sub{ margin-bottom: 20px; }
+
+  .mf-end{
+    margin: 26px 0 0;
+    text-align: center;
+  }
+
+  .mf-end[hidden], .mf-open-wrap[hidden]{ display: none; }
+
+  .mf-end-btn{
+    padding: 0 0 1px;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid rgba(110,127,92,0.45);
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--moss);
+    cursor: pointer;
+  }
+
+  .mf-label{
+    display: block;
+    margin: 0 0 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .mf-input{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 16px;
+    padding: 11px 12px;
+    font-family: 'Literata', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: #FFFDF9;
+    border: 1px solid rgba(43,40,37,0.22);
+    border-radius: 3px;
+  }
+
+  .mf-area{ resize: vertical; min-height: 120px; }
+
+  .mf-input:focus{
+    outline: 2px solid var(--moss);
+    outline-offset: 1px;
+    border-color: var(--moss);
+  }
+
+  .mf-hp{
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .mf-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mf-count{
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+    opacity: 0.7;
+  }
+
+  .mf-send{
+    padding: 11px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--paper);
+    background: var(--moss);
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .mf-send:hover{ background: #5f6f4f; }
+  .mf-send:focus-visible{ outline: 2px solid var(--ink); outline-offset: 2px; }
+  .mf-send:disabled{ opacity: 0.6; cursor: default; }
+
+  .mf-note{
+    margin: 14px 0 0;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    opacity: 0.8;
+  }
+
+  .mf-err{
+    margin: 10px 0 0;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    color: var(--plum);
+  }
+
+  .mf-err[hidden], .leave-msg[hidden], #msg-formbox[hidden], .mf-thanks[hidden]{ display: none; }
+
+  .mf-thanks{ text-align: center; padding: 6px 0 10px; }
+
+  .mf-dot{
+    width: 8px;
+    height: 8px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .mf-thanks-title{
+    margin: 0 0 8px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: var(--ink);
+  }
+
+  .mf-thanks-text{
+    margin: 0 0 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .mf-again{
+    padding: 0 0 1px;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid rgba(110,127,92,0.45);
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--moss);
+    cursor: pointer;
+  }
+
   ::selection{
     background: var(--plum);
     color: var(--paper);
@@ -612,8 +821,40 @@
 
 <div class="comments-section" role="region" aria-labelledby="readers-heading">
   <h3 id="readers-heading">Words from readers</h3>
-  <p class="comments-sub">19 messages left on this page since it was published</p>
-  <p class="comments-note">The comment box has been retired, so new messages can’t be added here for now.</p>
+  <p class="comments-sub" id="readers-sub">19 messages left on this page since it was published</p>
+  <div class="mf-open-wrap" id="mf-open-wrap" hidden>
+    <button class="mf-open" id="mf-open" type="button" aria-expanded="false" aria-controls="leave-msg">Leave a message</button>
+  </div>
+
+  <div class="leave-msg" id="leave-msg" hidden>
+    <div id="msg-formbox">
+      <p class="comments-sub mf-sub">Messages are read before they appear on this page.</p>
+      <form id="msg-form" novalidate>
+        <label class="mf-label" for="mf-name">Your name</label>
+        <input class="mf-input" id="mf-name" type="text" maxlength="60" autocomplete="name">
+
+        <label class="mf-label" for="mf-msg">Your message</label>
+        <textarea class="mf-input mf-area" id="mf-msg" rows="5" maxlength="1500"></textarea>
+
+        <div class="mf-hp" aria-hidden="true"><label>Website <input type="text" id="mf-web" tabindex="-1" autocomplete="off"></label></div>
+
+        <div class="mf-row">
+          <span class="mf-count" id="mf-count">0 / 1500</span>
+          <button class="mf-send" id="mf-send" type="submit">Send message</button>
+        </div>
+        <p class="mf-err" id="mf-err" role="alert" hidden></p>
+        <p class="mf-note">Your name appears beside your message. We don’t ask for your email.</p>
+      </form>
+    </div>
+
+    <div class="mf-thanks" id="mf-thanks" role="status" hidden>
+      <div class="mf-dot"></div>
+      <p class="mf-thanks-title">Thank you</p>
+      <p class="mf-thanks-text">Your message has been received. It will appear on this page once it has been read.</p>
+      <button class="mf-again" id="mf-again" type="button">Write another</button>
+    </div>
+  </div>
+
   <div class="reader-list">
     <article class="reader-comment">
       <div class="reader-meta"><span class="reader-name">Dr. Sharan</span><span class="reader-date">6 July 2026</span></div>
@@ -692,6 +933,8 @@
       <div class="reader-text"><p>May God bless you dear....</p></div>
     </article>
   </div>
+
+  <p class="mf-end" id="mf-end" hidden><button class="mf-end-btn" id="mf-end-btn" type="button">Leave a message</button></p>
 </div>
 
 <script>
@@ -724,39 +967,81 @@
 </script>
 
 <script>
-  // Long reader comments: show a shortened version with "Read more". Without JS the full text simply shows.
+  // Reader messages: "Read more" for long ones, approved new messages from the Google Sheet, and the message form.
   (function(){
+    var CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTJPIJAOguBOyHWWH4yibbbmBR71GZ7h1gP_lqcrAv25RRS19B4RQi-2L4XaPixiXea-pMh00qpDZ08/pub?gid=227462627&single=true&output=csv";
+    var FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSekS0DIF0F4CwCq2oyyOjkv8WvLikeqH7u_0ZlafVl_Vymekg/formResponse";
+    var F_NAME = "entry.81267201", F_MSG = "entry.59059598";
     var COLLAPSED_PX = 136, SLACK = 56;
-    var cards = document.querySelectorAll('.reader-comment');
+    var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var list = document.querySelector('.reader-list');
+    var sub = document.getElementById('readers-sub');
     var items = [];
-    Array.prototype.forEach.call(cards, function(card, i){
-      var text = card.querySelector('.reader-text');
-      if (!text) return;
-      text.id = 'reader-text-' + (i + 1);
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'reader-more';
-      btn.setAttribute('aria-controls', text.id);
-      btn.setAttribute('aria-expanded', 'false');
-      btn.textContent = 'Read more';
-      btn.hidden = true;
-      card.appendChild(btn);
-      var it = { card: card, text: text, btn: btn, open: false };
-      items.push(it);
-      btn.addEventListener('click', function(){
-        it.open = !it.open;
-        if (it.open) {
-          it.text.classList.remove('collapsed');
-          btn.textContent = 'Show less';
-          btn.setAttribute('aria-expanded', 'true');
-        } else {
-          it.text.classList.add('collapsed');
-          btn.textContent = 'Read more';
-          btn.setAttribute('aria-expanded', 'false');
-          if (card.getBoundingClientRect().top < 0 && card.scrollIntoView) { card.scrollIntoView(); }
-        }
+
+    function mk(tag, cls, text){
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null) n.textContent = text;
+      return n;
+    }
+
+    function fillParagraphs(box, text){
+      String(text).replace(/\r\n?/g, '\n').split(/\n\s*\n/).forEach(function(chunk){
+        chunk = chunk.trim();
+        if (!chunk) return;
+        var p = document.createElement('p');
+        chunk.split('\n').forEach(function(line, i){
+          if (i) p.appendChild(document.createElement('br'));
+          p.appendChild(document.createTextNode(line));
+        });
+        box.appendChild(p);
       });
-    });
+    }
+
+    function fmtDate(s){
+      var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s).trim());
+      if (!m) return '';
+      var mi = parseInt(m[2], 10) - 1;
+      if (mi < 0 || mi > 11) return '';
+      return parseInt(m[3], 10) + ' ' + MONTHS[mi] + ' ' + m[1];
+    }
+
+    /* ---- Read more ---- */
+    function setupCards(){
+      if (!list) return;
+      Array.prototype.forEach.call(list.querySelectorAll('.reader-comment'), function(card){
+        if (card.getAttribute('data-rm') === '1') return;
+        var text = card.querySelector('.reader-text');
+        if (!text) return;
+        card.setAttribute('data-rm', '1');
+        text.id = 'reader-text-' + (items.length + 1);
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'reader-more';
+        btn.setAttribute('aria-controls', text.id);
+        btn.setAttribute('aria-expanded', 'false');
+        btn.textContent = 'Read more';
+        btn.hidden = true;
+        text.parentNode.insertBefore(btn, text.nextSibling);
+        var it = { card: card, text: text, btn: btn, open: false };
+        items.push(it);
+        btn.addEventListener('click', function(){
+          it.open = !it.open;
+          if (it.open) {
+            it.text.classList.remove('collapsed');
+            btn.textContent = 'Show less';
+            btn.setAttribute('aria-expanded', 'true');
+          } else {
+            it.text.classList.add('collapsed');
+            btn.textContent = 'Read more';
+            btn.setAttribute('aria-expanded', 'false');
+            if (card.getBoundingClientRect().top < 0 && card.scrollIntoView) { card.scrollIntoView(); }
+          }
+        });
+      });
+      evaluate();
+    }
+
     function evaluate(){
       items.forEach(function(it){
         if (it.open) return;
@@ -769,7 +1054,137 @@
         }
       });
     }
-    evaluate();
+
+    /* ---- parse the published CSV (quoted fields, commas and line breaks inside quotes) ---- */
+    function parseCSV(text){
+      var rows = [], row = [], field = '', inQ = false, i, c;
+      for (i = 0; i < text.length; i++) {
+        c = text.charAt(i);
+        if (inQ) {
+          if (c === '"') {
+            if (text.charAt(i + 1) === '"') { field += '"'; i++; } else { inQ = false; }
+          } else { field += c; }
+        } else if (c === '"') { inQ = true; }
+        else if (c === ',') { row.push(field); field = ''; }
+        else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+        else if (c !== '\r') { field += c; }
+      }
+      if (field !== '' || row.length) { row.push(field); rows.push(row); }
+      return rows;
+    }
+
+    function addMessage(date, name, message, reply){
+      var art = mk('article', 'reader-comment');
+      var meta = mk('div', 'reader-meta');
+      meta.appendChild(mk('span', 'reader-name', name));
+      var d = fmtDate(date);
+      if (d) meta.appendChild(mk('span', 'reader-date', d));
+      var body = mk('div', 'reader-text');
+      fillParagraphs(body, message);
+      art.appendChild(meta);
+      art.appendChild(body);
+      if (reply) {
+        var r = mk('div', 'reader-reply');
+        r.appendChild(mk('div', 'reader-reply-label', 'Reply'));
+        fillParagraphs(r, reply);
+        art.appendChild(r);
+      }
+      list.appendChild(art);
+    }
+
+    function loadApproved(){
+      if (!list || !window.fetch) return;
+      fetch(CSV_URL + '&_=' + Date.now(), { cache: 'no-store' })
+        .then(function(r){ if (!r.ok) throw new Error('bad status'); return r.text(); })
+        .then(function(t){
+          var added = 0;
+          parseCSV(t).forEach(function(row){
+            var name = (row[1] || '').trim(), msg = (row[2] || '').trim();
+            if (!name || !msg) return;
+            addMessage(row[0] || '', name, msg, (row[3] || '').trim());
+            added++;
+          });
+          if (added) {
+            var total = list.querySelectorAll('.reader-comment').length;
+            if (sub) sub.textContent = total + (total === 1 ? ' message' : ' messages') + ' left on this page since it was published';
+            setupCards();
+          }
+        })
+        .catch(function(){ /* the messages already on the page stay as they are */ });
+    }
+
+    /* ---- message form: a button near the top opens it in place ---- */
+    var box = document.getElementById('leave-msg');
+    var openBtn = document.getElementById('mf-open');
+    if (box && openBtn && window.fetch && window.FormData) {
+      var openWrap = document.getElementById('mf-open-wrap');
+      var endWrap = document.getElementById('mf-end');
+      var endBtn = document.getElementById('mf-end-btn');
+      var form = document.getElementById('msg-form');
+      var formBox = document.getElementById('msg-formbox');
+      var thanks = document.getElementById('mf-thanks');
+      var nameEl = document.getElementById('mf-name'), msgEl = document.getElementById('mf-msg');
+      var hpEl = document.getElementById('mf-web'), countEl = document.getElementById('mf-count');
+      var errEl = document.getElementById('mf-err'), sendBtn = document.getElementById('mf-send');
+      openWrap.hidden = false;
+      endWrap.hidden = false;
+
+      function showErr(t){ errEl.textContent = t; errEl.hidden = false; }
+      function showThanks(){ formBox.hidden = true; thanks.hidden = false; }
+      function resetForm(){
+        nameEl.value = ''; msgEl.value = ''; countEl.textContent = '0 / 1500';
+        errEl.hidden = true;
+        sendBtn.disabled = false; sendBtn.textContent = 'Send message';
+        thanks.hidden = true; formBox.hidden = false;
+      }
+      function setOpen(open){
+        box.hidden = !open;
+        openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        openBtn.textContent = open ? 'Close' : 'Leave a message';
+        if (!open && !thanks.hidden) resetForm();
+      }
+
+      openBtn.addEventListener('click', function(){
+        var willOpen = box.hidden;
+        setOpen(willOpen);
+        if (willOpen) nameEl.focus();
+      });
+
+      // the link after the last message: open the form and bring the reader back up to it
+      endBtn.addEventListener('click', function(){
+        setOpen(true);
+        var top = document.getElementById('readers-heading');
+        if (top && top.scrollIntoView) top.scrollIntoView({ block: 'start' });
+        nameEl.focus({ preventScroll: true });
+      });
+
+      msgEl.addEventListener('input', function(){ countEl.textContent = msgEl.value.length + ' / 1500'; });
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var name = nameEl.value.trim(), msg = msgEl.value.trim();
+        if (!name || !msg) { showErr('Please add your name and a message.'); return; }
+        errEl.hidden = true;
+        if (hpEl.value) { showThanks(); return; }   // filled only by bots: pretend it worked, send nothing
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'Sending...';
+        var fd = new FormData();
+        fd.append(F_NAME, name);
+        fd.append(F_MSG, msg);
+        fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body: fd })
+          .then(function(){ showThanks(); })
+          .catch(function(){
+            showErr('Sorry, your message could not be sent. Please try again in a moment.');
+            sendBtn.disabled = false;
+            sendBtn.textContent = 'Send message';
+          });
+      });
+
+      document.getElementById('mf-again').addEventListener('click', resetForm);
+    }
+
+    setupCards();
+    loadApproved();
     window.addEventListener('load', evaluate);
     if (document.fonts && document.fonts.ready) { document.fonts.ready.then(evaluate); }
     var t;
